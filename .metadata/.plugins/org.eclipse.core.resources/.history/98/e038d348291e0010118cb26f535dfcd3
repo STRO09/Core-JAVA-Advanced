@@ -1,0 +1,15 @@
+package displayall;
+
+import javax.swing.JFrame;
+
+public class Display extends JFrame {
+
+	public Display() {
+		// TODO Auto-generated constructor stub
+		setTitle("Home");
+		setSize(400, 350); // Increased height for spacing
+		setLayout(null);
+		setLocationRelativeTo(null);
+		setResizable(false);
+	}
+}

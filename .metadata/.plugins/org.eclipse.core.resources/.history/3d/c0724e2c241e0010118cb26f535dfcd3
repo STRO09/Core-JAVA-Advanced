@@ -1,0 +1,34 @@
+package deletion;
+
+import java.awt.Font;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+public class Delete extends JFrame {
+
+	JLabel empidlabel;
+	JTextField empid;
+	JButton deletebutton;
+
+	Font labelFont = new Font("SansSerif", Font.BOLD, 15);
+	Font fieldFont = new Font("SansSerif", Font.PLAIN, 15);
+	Font buttonFont = new Font("Sans", Font.BOLD, 17);
+
+	public Delete() {
+		setTitle("Delete");
+		setSize(400, 350); // Increased height for spacing
+		setLayout(null);
+		setLocationRelativeTo(null);
+		setResizable(false);
+
+		empidlabel = new JLabel();
+		empidlabel.setFont(buttonFont);
+
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
+		// TODO Auto-generated constructor stub
+	}
+}

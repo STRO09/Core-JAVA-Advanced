@@ -1,0 +1,21 @@
+package deletion;
+
+import java.awt.Font;
+
+import javax.swing.JFrame;
+
+public class Delete extends JFrame {
+
+	JLabel empidlabel;
+	
+	Font labelFont = new Font("SansSerif", Font.BOLD, 15);
+	Font fieldFont = new Font("SansSerif", Font.PLAIN, 15);
+	Font buttonFont = new Font("Sans", Font.BOLD, 17);
+	
+	public Delete() {
+		
+	
+		
+		// TODO Auto-generated constructor stub
+	}
+}

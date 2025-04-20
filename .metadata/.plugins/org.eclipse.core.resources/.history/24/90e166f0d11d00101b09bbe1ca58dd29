@@ -1,0 +1,131 @@
+package home;
+
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+public class Home extends JFrame {
+
+	JMenuBar bar;
+	JMenu home, doctor, patient, billing, accounts;
+	JMenuItem aboutus, services, location, exit, doctorinfo, doctorregister, payment, patientdetails, patientregister,
+			gstbill, ngoaccounts, paymentdetails;
+
+	JButton filechoosebutton;
+	JFileChooser photochooser;
+	File picture;
+	FileNameExtensionFilter picturefilter;
+	JOptionPane wrongextensionwarning;
+	JLabel imageplaceholder;
+	ImageIcon image;
+
+	Font buttonFont = new Font("Sans", Font.BOLD, 17);
+
+	public Home() {
+		// TODO Auto-generated constructor stub
+		setTitle("Login");
+		setSize(700, 700);
+		setLayout(null);
+		setLocationRelativeTo(null);
+		setResizable(false);
+
+		bar = new JMenuBar();
+
+		home = new JMenu("Home");
+		doctor = new JMenu("Doctor");
+		patient = new JMenu("Patient");
+		accounts = new JMenu("Accounts");
+		billing = new JMenu("Billing");
+
+		// Initialize menu items
+		aboutus = new JMenuItem("About Us");
+		services = new JMenuItem("Services");
+		location = new JMenuItem("Location");
+		exit = new JMenuItem("Exit");
+
+		doctorinfo = new JMenuItem("Doctor Info");
+		doctorregister = new JMenuItem("Doctor Registration");
+		payment = new JMenuItem("Payment");
+
+		patientdetails = new JMenuItem("Patient Details");
+		patientregister = new JMenuItem("Patient Register");
+		gstbill = new JMenuItem("GST Bill");
+
+		ngoaccounts = new JMenuItem("Ngo Accounts");
+		paymentdetails = new JMenuItem("Payment Details");
+
+		home.add(aboutus);
+		home.add(services);
+		home.add(location);
+		home.add(exit);
+
+		doctor.add(doctorinfo);
+		doctor.add(doctorregister);
+		doctor.add(payment);
+
+		patient.add(patientdetails);
+		patient.add(billing);
+		patient.add(patientregister);
+
+		billing.add(gstbill);
+
+		accounts.add(ngoaccounts);
+		accounts.add(paymentdetails);
+
+		bar.add(home);
+		bar.add(doctor);
+		bar.add(patient);
+		bar.add(accounts);
+
+		setJMenuBar(bar);
+
+		filechoosebutton = new JButton("📤Upload a Picture");
+		filechoosebutton.setFont(buttonFont);
+		filechoosebutton.setBounds(40, 50, 300, 50);
+		add(filechoosebutton);
+
+		filechoosebutton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				photochooser = new JFileChooser();
+				picturefilter = new FileNameExtensionFilter("Image Files", "jpg", "jpeg", "png", "gif", "bmp");
+				photochooser.setFileFilter(picturefilter);
+				
+				int result = photochooser.showOpenDialog(null);
+				if (result == photochooser.APPROVE_OPTION) {
+					picture = photochooser.getSelectedFile();
+
+					String filename = picture.getName().toLowerCase();
+					if(filename.endsWith(".jpg") ||filename.endsWith(".jpeg") || filename.endsWith(".png") || filename.endsWith(".gif") ||filename.endsWith(".bmp") ) {
+						String file = picture.getAbsolutePath();
+						image = new ImageIcon(file);
+						
+						
+					}
+					else {
+						wrongextensionwarning = new JOptionPane();
+						wrongextensionwarning.showMessageDialog(null, "Please Choose only image files");
+						return;
+					}
+				}
+			}
+		});
+
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
+	}
+}

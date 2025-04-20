@@ -1,0 +1,18 @@
+package home;
+
+
+
+import java.awt.Font;
+
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
+public class Home extends JFrame {
+
+	Font buttonFont = new Font("Sans", Font.BOLD, 17);
+	public Home() {
+		
+	}
+}

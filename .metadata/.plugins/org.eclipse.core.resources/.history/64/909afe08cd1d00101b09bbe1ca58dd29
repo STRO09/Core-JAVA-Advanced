@@ -1,0 +1,90 @@
+package login;
+
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+
+import home.Home;
+
+public class Login extends JFrame {
+
+	JLabel jLabel1, jLabel2; 
+	JTextField jTextField;
+	JPasswordField jPasswordField;
+	JButton jButton1, jButton2; 
+
+	Font labelFont = new Font("SansSerif", Font.BOLD, 15);
+	Font fieldFont = new Font("SansSerif", Font.PLAIN, 15);
+	Font buttonFont = new Font("Sans", Font.BOLD, 17);
+
+	public Login() {
+		setTitle("Login");
+		setSize(400, 300);
+		setLayout(null);
+		setLocationRelativeTo(null);
+		setResizable(false);
+
+		int leftMargin = 50;
+		int labelWidth = 100;
+		int fieldWidth = 200;
+		int height = 25;
+		int vSpacing = 20;
+
+		jLabel1 = new JLabel("Username:");
+		jLabel1.setFont(labelFont);
+		jLabel1.setBounds(leftMargin, 40, labelWidth, height);
+		add(jLabel1);
+
+		jTextField = new JTextField();
+		jTextField.setFont(fieldFont);
+		jTextField.setBounds(leftMargin + labelWidth + 10, 40, fieldWidth, height);
+		add(jTextField);
+
+		jLabel2 = new JLabel("Password:");
+		jLabel2.setFont(labelFont);
+		jLabel2.setBounds(leftMargin, 40 + height + vSpacing, labelWidth, height);
+		add(jLabel2);
+
+		jPasswordField = new JPasswordField();
+		jPasswordField.setFont(fieldFont);
+		jPasswordField.setBounds(leftMargin + labelWidth + 10, 40 + height + vSpacing, fieldWidth, height);
+		add(jPasswordField);
+
+		jButton1 = new JButton("Submit");
+		jButton1.setFont(buttonFont);
+		jButton1.setBounds(leftMargin, 40 + 2 * (height + vSpacing) + 10, 120, 30);
+		add(jButton1);
+
+		jButton2 = new JButton("Reset");
+		jButton2.setFont(buttonFont);
+		jButton2.setBounds(leftMargin + 150, 40 + 2 * (height + vSpacing) + 10, 120, 30);
+		add(jButton2);
+
+		jButton1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Submitted");
+				if (jTextField.getText().equals("SDAC") && new String(jPasswordField.getPassword()).equals("SDAC")) {
+					new Home();
+					dispose();
+				} else {
+					JOptionPane.showMessageDialog(null, "Invalid credentials");
+				}
+			}
+		});
+
+		jButton2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Reset");
+				jTextField.setText("");
+				jPasswordField.setText("");
+			}
+		});
+
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);	
+	}
+}

@@ -1,0 +1,15 @@
+package operations;
+
+import java.util.List;
+
+public interface Ops {
+
+	int insertData(int empid, String empname, String contact);
+
+	int deleteData(int empid);
+
+	void updateData(int empid, String contact);
+
+	List<Emp> showData();
+
+}

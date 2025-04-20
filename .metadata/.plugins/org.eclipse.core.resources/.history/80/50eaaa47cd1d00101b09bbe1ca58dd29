@@ -1,0 +1,98 @@
+package login;
+
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import home.Home;
+
+public class Login extends JFrame {
+
+	JLabel jLabel1, jLabel2; 
+	JTextField jTextField;
+	JPasswordField jPasswordField;
+	JButton jButton1, jButton2; 
+	
+	
+	Font labelFont = new Font("SansSerif", Font.BOLD, 15);
+	Font fieldFont = new Font("SansSerif", Font.PLAIN, 15);
+	Font buttonFont = new Font("Sans", Font.BOLD, 17);
+	
+	
+	
+	public Login() {
+		// TODO Auto-generated constructor stub
+		setTitle("Login");
+		setSize(400, 300);
+		setLayout(null);
+		setLocationRelativeTo(null);
+		setResizable(false);
+		
+		jLabel1 = new JLabel("Username :");
+		jLabel1.setFont(labelFont);
+		jLabel1.setBounds(30,50,100,25);
+		add(jLabel1);
+		
+		jTextField = new JTextField(30);
+		jTextField.setFont(fieldFont);
+		jTextField.setBounds(130,50,200,25);
+		add(jTextField);
+		
+		jLabel2 = new JLabel("Password :"); 
+		jLabel2.setFont(labelFont);
+		jLabel2.setBounds(30,110,100,25);
+		add(jLabel2);
+		
+		jPasswordField = new JPasswordField(30);
+		jPasswordField.setFont(fieldFont);
+		jPasswordField.setBounds(130, 110, 200, 25);
+		add(jPasswordField);
+		
+		jButton1 = new JButton("Submit");
+		jButton1.setFont(buttonFont);
+		jButton1.setBounds(30, 170, 125, 25);
+		add(jButton1);
+		
+		jButton2 = new JButton("Reset");
+		jButton2.setFont(buttonFont);
+		jButton2.setBounds(205, 170, 125, 25);
+		add(jButton2);
+		
+		jButton1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("Submitted");
+				if(jTextField.getText().equals("SDAC") && new String(jPasswordField.getPassword()).equals("SDAC")) {
+					new Home();
+					dispose();
+				}
+			}
+		});
+		
+		
+		jButton2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("Reset");
+				jTextField.setText("");
+				jPasswordField.setText("");
+				
+			}
+		});
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);	
+		
+	}
+}

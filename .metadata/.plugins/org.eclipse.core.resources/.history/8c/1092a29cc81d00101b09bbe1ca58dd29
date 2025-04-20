@@ -1,0 +1,225 @@
+package registration;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.NumberFormat;
+
+import getconnection.GetConnection;
+import login.Login;
+
+public class Register extends JFrame {
+
+	JTextField usernameField, cityField;
+	JPasswordField passwordField;
+	JFormattedTextField contactField;
+	JTextArea commentArea;
+	JRadioButton maleButton, femaleButton, otherButton;
+	JButton submitButton, resetButton;
+	PreparedStatement query;
+
+	Font labelFont = new Font("SansSerif", Font.BOLD, 15);
+	Font fieldFont = new Font("SansSerif", Font.PLAIN, 15);
+	Font buttonFont = new Font("Sans", Font.BOLD, 17);
+
+	public void registerData(String name, String password, String contact, String gender, String city, String comment) {
+		try {
+			PreparedStatement selectstatement = GetConnection.getconnection()
+					.prepareStatement("SELECT * FROM users where LOWER(username)=? OR contact=?");
+			selectstatement.setString(1, name);
+			selectstatement.setString(2, contact);
+			ResultSet resultSet = selectstatement.executeQuery();
+
+			boolean usernameExists = false;
+			boolean contactExists = false;
+
+			while (resultSet.next()) {
+			    if (resultSet.getString("username").equals(name)) {
+			        usernameExists = true;
+			    }
+			    if (resultSet.getString("contact").equals(contact)) {
+			        contactExists = true;
+			    }
+			}
+
+
+			if (usernameExists && contactExists) {
+			    JOptionPane.showMessageDialog(null, "Username and contact already exist!");
+			    return;
+			} else if (usernameExists) {
+			    JOptionPane.showMessageDialog(null, "Username already exists!");
+			    return;
+			} else if (contactExists) {
+			    JOptionPane.showMessageDialog(null, "Contact already exists!");
+			    return;
+			}
+
+
+			query = GetConnection.getconnection().prepareStatement("INSERT INTO users VALUES (?, ?, ?, ?, ?, ?)");
+			query.setString(1, name);
+			query.setString(2, password);
+			query.setString(3, contact);
+			query.setString(4, gender);
+			query.setString(5, city);
+			query.setString(6, comment);
+			query.executeUpdate();
+			System.out.println("Data registered successfully");
+			JOptionPane.showMessageDialog(null, "Registration Successful!");
+			dispose();
+			new Login();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public Register() {
+		setTitle("Register");
+		setSize(400, 420);
+		setLayout(null);
+		setLocationRelativeTo(null);
+		setResizable(false);
+
+		JLabel label1 = new JLabel("Username :");
+		label1.setFont(labelFont);
+		label1.setBounds(40, 30, 100, 25);
+		add(label1);
+
+		usernameField = new JTextField();
+		usernameField.setFont(fieldFont);
+		usernameField.setBounds(150, 30, 200, 25);
+		add(usernameField);
+
+		JLabel label2 = new JLabel("Password :");
+		label2.setFont(labelFont);
+		label2.setBounds(40, 70, 100, 25);
+		add(label2);
+
+		passwordField = new JPasswordField();
+		passwordField.setFont(fieldFont);
+		passwordField.setBounds(150, 70, 200, 25);
+		add(passwordField);
+
+		JLabel label3 = new JLabel("Contact :");
+		label3.setFont(labelFont);
+		label3.setBounds(40, 110, 100, 25);
+		add(label3);
+
+		contactField = new JFormattedTextField(NumberFormat.getIntegerInstance());
+		contactField.setFont(fieldFont);
+		contactField.setBounds(150, 110, 200, 25);
+		add(contactField);
+
+		JLabel label4 = new JLabel("Gender :");
+		label4.setFont(labelFont);
+		label4.setBounds(40, 150, 100, 25);
+		add(label4);
+
+		maleButton = new JRadioButton("Male");
+		femaleButton = new JRadioButton("Female");
+		otherButton = new JRadioButton("Other");
+
+		maleButton.setBounds(150, 150, 70, 25);
+		femaleButton.setBounds(230, 150, 80, 25);
+		otherButton.setBounds(310, 150, 70, 25);
+
+		maleButton.setFont(fieldFont);
+		femaleButton.setFont(fieldFont);
+		otherButton.setFont(fieldFont);
+
+		ButtonGroup genderGroup = new ButtonGroup();
+		genderGroup.add(maleButton);
+		genderGroup.add(femaleButton);
+		genderGroup.add(otherButton);
+
+		add(maleButton);
+		add(femaleButton);
+		add(otherButton);
+
+		JLabel label5 = new JLabel("City :");
+		label5.setFont(labelFont);
+		label5.setBounds(40, 190, 100, 25);
+		add(label5);
+
+		cityField = new JTextField();
+		cityField.setFont(fieldFont);
+		cityField.setBounds(150, 190, 200, 25);
+		add(cityField);
+
+		JLabel label6 = new JLabel("Comment :");
+		label6.setFont(labelFont);
+		label6.setBounds(40, 230, 100, 25);
+		add(label6);
+
+		commentArea = new JTextArea();
+		commentArea.setLineWrap(true);
+		commentArea.setFont(fieldFont);
+
+		JScrollPane scrollPane = new JScrollPane(commentArea);
+		scrollPane.setBounds(150, 230, 200, 60);
+		add(scrollPane);
+
+		submitButton = new JButton("Submit");
+		submitButton.setFont(buttonFont);
+		submitButton.setBounds(90, 320, 100, 30);
+		add(submitButton);
+
+		resetButton = new JButton("Reset");
+		resetButton.setFont(buttonFont);
+		resetButton.setBounds(210, 320, 100, 30);
+		add(resetButton);
+
+		submitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(usernameField.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Please Enter username.");	
+					return;
+				}
+				if(new String(passwordField.getPassword()).equals("")) {
+					JOptionPane.showMessageDialog(null, "Please Enter password.");	
+					return;
+				}
+				
+				if(contactField.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Please Enter Contact number.");
+					return;
+				}
+				if(contactField.getText().length()<=9) {
+					JOptionPane.showMessageDialog(null, "Please Enter valid Contact number.");	
+					return;
+				}
+				
+				if (!maleButton.isSelected() && !femaleButton.isSelected() && !otherButton.isSelected()) {
+					JOptionPane.showMessageDialog(null, "Please select gender.");
+					return;
+				}
+
+				String gender = maleButton.isSelected() ? "Male" : femaleButton.isSelected() ? "Female" : "Other";
+
+				if(cityField.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Please Enter City.");
+					return;
+				}
+				registerData(usernameField.getText(), new String(passwordField.getPassword()), contactField.getText(),
+						gender, cityField.getText(), commentArea.getText());
+
+			}
+		});
+
+		resetButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				usernameField.setText("");
+				passwordField.setText("");
+				contactField.setText("");
+				cityField.setText("");
+				commentArea.setText("");
+				genderGroup.clearSelection();
+			}
+		});
+
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
+	}
+}
