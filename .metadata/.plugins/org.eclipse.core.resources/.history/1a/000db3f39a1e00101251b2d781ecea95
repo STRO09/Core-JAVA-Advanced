@@ -3,10 +3,8 @@ package updateData;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.NumberFormat;
 
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,8 +16,7 @@ import operations.OpsImp;
 public class Update extends JFrame {
 
 	JLabel empidlabel, empnamelabel, contactlabel;
-	JTextField empid, empname;
-	JFormattedTextField contact;
+	JTextField empid, empname, contact;
 	JButton updatebutton, resetbutton, backButton;
 	OpsImp imp = new OpsImp();
 
@@ -76,7 +73,7 @@ public class Update extends JFrame {
 		contactlabel.setBounds(60, 130, 100, 25);
 		add(contactlabel);
 
-		contact = new JFormattedTextField(NumberFormat.getIntegerInstance());
+		contact = new JTextField();
 		contact.setFont(fieldFont);
 		contact.setBounds(180, 130, 175, 25);
 		add(contact);
@@ -92,7 +89,9 @@ public class Update extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					
-					imp.updateData(Integer.parseInt(empid.getText()), empname.getText(), contact.getText().replaceAll(",", "")); // assuming email is not used here
+					String name = empname.getText().trim();
+					String contactInfo = contact.getText().trim();
+					imp.updateData(Integer.parseInt(empid.getText(), name, contactInfo); // assuming email is not used here
 				} catch (NumberFormatException ex) {
 					JOptionPane.showMessageDialog(null, "Please enter a valid Emp ID (number).");
 				}

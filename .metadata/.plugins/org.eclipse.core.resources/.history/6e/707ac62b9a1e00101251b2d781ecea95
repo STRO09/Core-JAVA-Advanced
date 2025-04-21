@@ -127,7 +127,7 @@ public class OpsImp implements Ops {
 		List<String> fields = new ArrayList<>();
 		List<Object> values = new ArrayList<>();
 		if (empname != null && !empname.isEmpty()) {
-			fields.add("empname = ?");
+			fields.add("name = ?");
 			values.add(empname);
 		}
 		if (contact != null && !contact.isEmpty()) {
@@ -157,7 +157,6 @@ public class OpsImp implements Ops {
 				
 			} else {
 				System.out.println("No employee found with empid: " + empid);
-				JOptionPane.showMessageDialog(null, "No Data found for given Emp ID !");
 				return 0;
 			}
 		} catch (ClassNotFoundException | SQLException e) {

@@ -127,7 +127,7 @@ public class OpsImp implements Ops {
 		List<String> fields = new ArrayList<>();
 		List<Object> values = new ArrayList<>();
 		if (empname != null && !empname.isEmpty()) {
-			fields.add("empname = ?");
+			fields.add("name = ?");
 			values.add(empname);
 		}
 		if (contact != null && !contact.isEmpty()) {
@@ -153,17 +153,13 @@ public class OpsImp implements Ops {
 			if (rowsAffected > 0) {
 				System.out.println("Data Updated Successfully.");
 				JOptionPane.showMessageDialog(null, "Data Updated successfully!");
-				return 1;
 				
 			} else {
 				System.out.println("No employee found with empid: " + empid);
-				JOptionPane.showMessageDialog(null, "No Data found for given Emp ID !");
-				return 0;
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-		return 0;
 	}
 
 	@Override

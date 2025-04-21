@@ -10,7 +10,7 @@ public interface Ops {
 
 	int deleteData(int empid);
 
-	int updateData(int empid,String empname, String contact);
+	void updateData(int empid, String contact);
 
 	List<Emp> showData();
 

@@ -121,13 +121,13 @@ public class OpsImp implements Ops {
 	}
 
 	@Override
-	public int updateData(int empid, String empname, String contact) {
+	public void updateData(int empid, String empname, String contact) {
 		// TODO Auto-generated method stub
 		StringBuilder query = new StringBuilder("UPDATE empdemojdbc SET ");
 		List<String> fields = new ArrayList<>();
 		List<Object> values = new ArrayList<>();
 		if (empname != null && !empname.isEmpty()) {
-			fields.add("empname = ?");
+			fields.add("name = ?");
 			values.add(empname);
 		}
 		if (contact != null && !contact.isEmpty()) {
@@ -137,33 +137,28 @@ public class OpsImp implements Ops {
 
 		if (fields.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "No data entered to update!");
-			return 0;
+			return;
 		}
-
+		
 		query.append(String.join(", ", fields));
-		query.append(" WHERE empid = ?");
-		values.add(empid);
+	    query.append(" WHERE empid = ?");
+	    values.add(empid);
+	    
 
 		try (PreparedStatement preparedStatement = GetConnection.getConnection().prepareStatement(query.toString())) {
-			for (int i = 0; i < values.size(); i++) {
-				preparedStatement.setObject(i + 1, values.get(i));
-			}
+	        for (int i = 0; i < values.size(); i++) {
+	            preparedStatement.setObject(i + 1, values.get(i));
+	        }
 
-			int rowsAffected = preparedStatement.executeUpdate();
-			if (rowsAffected > 0) {
-				System.out.println("Data Updated Successfully.");
-				JOptionPane.showMessageDialog(null, "Data Updated successfully!");
-				return 1;
-				
-			} else {
-				System.out.println("No employee found with empid: " + empid);
-				JOptionPane.showMessageDialog(null, "No Data found for given Emp ID !");
-				return 0;
-			}
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-		return 0;
+	        int rowsAffected = preparedStatement.executeUpdate();
+	        if (rowsAffected > 0) {
+	            System.out.println("Data Updated Successfully.");
+	        } else {
+	            System.out.println("No employee found with empid: " + empid);
+	        }
+	    } catch (ClassNotFoundException | SQLException e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	@Override

@@ -92,7 +92,7 @@ public class Update extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					
-					imp.updateData(Integer.parseInt(empid.getText()), empname.getText(), contact.getText().replaceAll(",", "")); // assuming email is not used here
+					imp.updateData(Integer.parseInt(empid.getText()), empname.getText(), contact.getText().replaceAll(",", ""); // assuming email is not used here
 				} catch (NumberFormatException ex) {
 					JOptionPane.showMessageDialog(null, "Please enter a valid Emp ID (number).");
 				}
