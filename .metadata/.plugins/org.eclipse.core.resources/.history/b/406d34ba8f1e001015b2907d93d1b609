@@ -1,0 +1,18 @@
+package searchdata;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+import operations.OpsImp;
+
+public class Search {
+
+	JLabel empidlabel;
+	JTextField empid;
+	JButton searchbutton, resetbutton;
+	OpsImp imp = new OpsImp();
+	public Search() {
+		// TODO Auto-generated constructor stub
+	}
+}

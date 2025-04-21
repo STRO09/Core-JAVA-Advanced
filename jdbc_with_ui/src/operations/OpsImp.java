@@ -151,11 +151,47 @@ public class OpsImp implements Ops {
 				String contact = resultSet.getString("contact");
 
 				employeeList.add(new Emp(empid, empname, contact));
+				
+				if (employeeList.isEmpty()) {
+		            System.out.println("No employee records found.");
+		            
+		            JOptionPane.showMessageDialog(null, "No employee records found!");
+		            return null;
+		        }
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 		return employeeList;
+	}
+
+	@Override
+	public Emp searchdata(int empid) {
+		// TODO Auto-generated method stub
+		Emp emp = null;
+		try {
+			PreparedStatement preparedStatement = GetConnection.getConnection()
+					.prepareStatement("SELECT * from empdemojdbc where empid=?");
+			preparedStatement.setInt(1, empid);
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				emp = new Emp(resultSet.getInt("empid"), resultSet.getString("empname"),
+						resultSet.getString("Contact"));
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "No such Employee found!");
+				return null;
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return emp;
 	}
 
 }

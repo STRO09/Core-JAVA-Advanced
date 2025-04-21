@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import deletion.Delete;
 import displayall.Display;
 import insertion.Insert;
+import searchdata.Search;
+import updateData.Update;
 
 public class Home extends JFrame {
 
@@ -44,6 +46,18 @@ public class Home extends JFrame {
 		updatebutton.setBounds(120, 70, 150, 30);
 		add(updatebutton);
 
+		updatebutton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+				new Update();
+				
+			}
+		});
+		
+		
 		deletebutton = new JButton("Delete");
 		deletebutton.setFont(buttonFont);
 		deletebutton.setBounds(120, 110, 150, 30);
@@ -79,6 +93,15 @@ public class Home extends JFrame {
 		searchbutton.setBounds(120, 190, 150, 30);
 		add(searchbutton);
 
+		searchbutton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+				new Search();
+			}
+		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}

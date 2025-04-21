@@ -17,7 +17,7 @@ public class Delete extends JFrame {
 
 	JLabel empidlabel;
 	JTextField empid;
-	JButton deletebutton, resetbutton;
+	JButton deletebutton, resetbutton, backButton;
 	OpsImp imp = new OpsImp();
 
 	Font labelFont = new Font("SansSerif", Font.BOLD, 15);
@@ -31,6 +31,21 @@ public class Delete extends JFrame {
 		setLocationRelativeTo(null);
 		setResizable(false);
 
+		// Back Button
+				backButton = new JButton("⬅️Back");
+				backButton.setFont(new Font("SansSerif", Font.PLAIN, 10));
+				backButton.setBounds(320, 10, 80, 25); // top-right corner
+				add(backButton);
+
+				backButton.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						dispose(); // close current window
+						new Home(); // open home window
+					}
+				});
+
+				
 		empidlabel = new JLabel("Emp ID :");
 		empidlabel.setFont(labelFont);
 		empidlabel.setBounds(60, 50, 150, 25);

@@ -13,7 +13,7 @@ public class Insert extends JFrame {
 
 	JTextField nameField, idField;
 	JFormattedTextField contactField;
-	JButton submitButton, resetButton;
+	JButton submitButton, resetButton, backButton;
 	OpsImp opsImp;
 
 	Font labelFont = new Font("SansSerif", Font.BOLD, 15);
@@ -22,49 +22,63 @@ public class Insert extends JFrame {
 
 	public Insert() {
 		setTitle("Insertion");
-		setSize(400, 300);
+		setSize(420, 300);
 		setLayout(null);
 		setLocationRelativeTo(null);
 		setResizable(false);
 
+		// Back Button
+		backButton = new JButton("⬅️Back");
+		backButton.setFont(new Font("SansSerif", Font.PLAIN, 10));
+		backButton.setBounds(320, 10, 80, 25); // top-right corner
+		add(backButton);
+
+		backButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose(); // close current window
+				new Home(); // open home window
+			}
+		});
+
 		JLabel nameLabel = new JLabel("Name:");
 		nameLabel.setFont(labelFont);
-		nameLabel.setBounds(40, 30, 100, 25);
+		nameLabel.setBounds(40, 40, 100, 25);
 		add(nameLabel);
 
 		nameField = new JTextField();
 		nameField.setFont(fieldFont);
-		nameField.setBounds(150, 30, 200, 25);
+		nameField.setBounds(150, 40, 200, 25);
 		add(nameField);
 
 		JLabel idLabel = new JLabel("ID:");
 		idLabel.setFont(labelFont);
-		idLabel.setBounds(40, 80, 100, 25);
+		idLabel.setBounds(40, 90, 100, 25);
 		add(idLabel);
 
 		idField = new JTextField();
 		idField.setFont(fieldFont);
-		idField.setBounds(150, 80, 200, 25);
+		idField.setBounds(150, 90, 200, 25);
 		add(idField);
 
 		JLabel contactLabel = new JLabel("Contact:");
 		contactLabel.setFont(labelFont);
-		contactLabel.setBounds(40, 130, 100, 25);
+		contactLabel.setBounds(40, 140, 100, 25);
 		add(contactLabel);
 
 		contactField = new JFormattedTextField(NumberFormat.getIntegerInstance());
 		contactField.setFont(fieldFont);
-		contactField.setBounds(150, 130, 200, 25);
+		contactField.setBounds(150, 140, 200, 25);
 		add(contactField);
 
 		submitButton = new JButton("Insert Data");
 		submitButton.setFont(buttonFont);
-		submitButton.setBounds(40, 190, 150, 30);
+		submitButton.setBounds(40, 200, 150, 30);
 		add(submitButton);
 
 		resetButton = new JButton("Reset");
 		resetButton.setFont(buttonFont);
-		resetButton.setBounds(220, 190, 130, 30);
+		resetButton.setBounds(220, 200, 130, 30);
 		add(resetButton);
 
 		submitButton.addActionListener(new ActionListener() {

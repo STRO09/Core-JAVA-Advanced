@@ -1,0 +1,10 @@
+package updateData;
+
+import javax.swing.JFrame;
+
+public class Update extends JFrame {
+
+	public Update() {
+		// TODO Auto-generated constructor stub
+	}
+}

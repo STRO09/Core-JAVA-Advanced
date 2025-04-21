@@ -1,0 +1,109 @@
+package home;
+
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+import deletion.Delete;
+import displayall.Display;
+import insertion.Insert;
+import searchdata.Search;
+
+public class Home extends JFrame {
+
+	JButton insertbutton, updatebutton, deletebutton, displaybutton, searchbutton;
+
+	Font buttonFont = new Font("Sans", Font.BOLD, 17);
+
+	public Home() {
+		setTitle("Home");
+		setSize(400, 350); // Increased height for spacing
+		setLayout(null);
+		setLocationRelativeTo(null);
+		setResizable(false);
+
+		insertbutton = new JButton("Insert");
+		insertbutton.setFont(buttonFont);
+		insertbutton.setBounds(120, 30, 150, 30);
+		add(insertbutton);
+		
+		insertbutton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+				new Insert();
+			}
+		});
+
+		updatebutton = new JButton("Update");
+		updatebutton.setFont(buttonFont);
+		updatebutton.setBounds(120, 70, 150, 30);
+		add(updatebutton);
+
+		updatebutton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		
+		deletebutton = new JButton("Delete");
+		deletebutton.setFont(buttonFont);
+		deletebutton.setBounds(120, 110, 150, 30);
+		add(deletebutton);
+		
+		deletebutton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+				new Delete();
+			}
+		});
+
+		displaybutton = new JButton("Display");
+		displaybutton.setFont(buttonFont);
+		displaybutton.setBounds(120, 150, 150, 30);
+		add(displaybutton);
+		
+		displaybutton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+				new Display();
+			}
+		});
+
+		searchbutton = new JButton("Search");
+		searchbutton.setFont(buttonFont);
+		searchbutton.setBounds(120, 190, 150, 30);
+		add(searchbutton);
+
+		searchbutton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+				new Search();
+			}
+		});
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
+	}
+
+	public static void main(String[] args) {
+		new Home();
+	}
+}

@@ -1,0 +1,26 @@
+package updateData;
+
+import java.awt.Font;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+import operations.OpsImp;
+
+public class Update extends JFrame {
+
+	JLabel empidlabel;
+	JTextField empid;
+	JButton deletebutton, resetbutton, backButton;
+	OpsImp imp = new OpsImp();
+
+	Font labelFont = new Font("SansSerif", Font.BOLD, 15);
+	Font fieldFont = new Font("SansSerif", Font.PLAIN, 15);
+	Font buttonFont = new Font("Sans", Font.BOLD, 17);
+	
+	public Update() {
+		// TODO Auto-generated constructor stub
+	}
+}

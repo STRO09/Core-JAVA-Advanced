@@ -1,0 +1,98 @@
+package deletion;
+
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+import home.Home;
+import operations.OpsImp;
+
+public class Delete extends JFrame {
+
+	JLabel empidlabel;
+	JTextField empid;
+	JButton deletebutton, resetbutton;
+	OpsImp imp = new OpsImp();
+
+	Font labelFont = new Font("SansSerif", Font.BOLD, 15);
+	Font fieldFont = new Font("SansSerif", Font.PLAIN, 15);
+	Font buttonFont = new Font("Sans", Font.BOLD, 17);
+
+	public Delete() {
+		setTitle("Delete");
+		setSize(425, 200); // Increased height for spacing
+		setLayout(null);
+		setLocationRelativeTo(null);
+		setResizable(false);
+
+		// Back Button
+				backButton = new JButton("⬅️Back");
+				backButton.setFont(new Font("SansSerif", Font.PLAIN, 10));
+				backButton.setBounds(320, 10, 80, 25); // top-right corner
+				add(backButton);
+
+				backButton.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						dispose(); // close current window
+						new Home(); // open home window
+					}
+				});
+
+				
+		empidlabel = new JLabel("Emp ID :");
+		empidlabel.setFont(labelFont);
+		empidlabel.setBounds(60, 50, 150, 25);
+		add(empidlabel);
+
+		empid = new JTextField();
+		empid.setFont(fieldFont);
+		empid.setBounds(160, 50, 175, 25);
+		add(empid);
+
+		deletebutton = new JButton("Delete Data");
+		deletebutton.setFont(buttonFont);
+		deletebutton.setBounds(60, 100, 150, 25);
+		add(deletebutton);
+
+		deletebutton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				int status = imp.deleteData(Integer.parseInt(empid.getText()));
+				if (status == 1) {
+					JOptionPane.showMessageDialog(null, "Data Deleted Successfully!");
+					dispose();
+					new Home();
+
+				}
+			}
+		});
+
+		resetbutton = new JButton("Reset");
+		resetbutton.setFont(buttonFont);
+		resetbutton.setBounds(235, 100, 100, 25);
+		add(resetbutton);
+
+		resetbutton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				empid.setText("");
+
+			}
+		});
+
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
+		// TODO Auto-generated constructor stub
+	}
+}

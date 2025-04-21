@@ -14,4 +14,6 @@ public interface Ops {
 
 	List<Emp> showData();
 
+	public Emp searchdata(int empid);
+
 }
