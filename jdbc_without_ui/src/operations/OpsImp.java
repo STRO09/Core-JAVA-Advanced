@@ -21,54 +21,20 @@ public class OpsImp implements Ops {
 		try {
 
 			PreparedStatement selectstatement = GetConnection.getConnection()
-					.prepareStatement("SELECT * FROM empdemojdbc where LOWER(empname)=? OR contact=? OR empid=?");
+					.prepareStatement("SELECT * FROM jdbcnoui where LOWER(empname)=? OR contact=? OR empid=?");
 			selectstatement.setString(1, empname);
 			selectstatement.setString(2, contact);
 			selectstatement.setInt(3, empid);
 			ResultSet resultSet = selectstatement.executeQuery();
 
-			boolean usernameExists = false;
-			boolean contactExists = false;
-			boolean empidExists = false;
+			if (resultSet.next()) {
 
-			while (resultSet.next()) {
-				if (resultSet.getString("empname").equalsIgnoreCase(empname)) {
-					usernameExists = true;
-				}
-				if (resultSet.getString("contact").equals(contact)) {
-					contactExists = true;
-				}
-				if (resultSet.getInt("empid") == empid) {
-					empidExists = true;
-				}
-			}
-
-			if (usernameExists && contactExists && empidExists) {
-				JOptionPane.showMessageDialog(null, "All the fields already exist!");
-				return 0;
-
-			} else if (usernameExists && contactExists) {
-				JOptionPane.showMessageDialog(null, "Username and contact already exist!");
-				return 0;
-			} else if (usernameExists && empidExists) {
-				JOptionPane.showMessageDialog(null, "Username and ID already exist!");
-				return 0;
-			} else if (contactExists && empidExists) {
-				JOptionPane.showMessageDialog(null, "Contact number and ID already exist!");
-				return 0;
-			} else if (usernameExists) {
-				JOptionPane.showMessageDialog(null, "Username already exists!");
-				return 0;
-			} else if (contactExists) {
-				JOptionPane.showMessageDialog(null, "Contact already exists!");
-				return 0;
-			} else if (empidExists) {
-				JOptionPane.showMessageDialog(null, "ID already exists!");
+				System.out.println("Data already exists!");
 				return 0;
 			}
 
 			PreparedStatement preparedStatement = GetConnection.getConnection()
-					.prepareStatement("INSERT INTO empdemojdbc values(?,?,?)");
+					.prepareStatement("INSERT INTO jdbcnoui values(?,?,?)");
 			preparedStatement.setInt(1, empid);
 			preparedStatement.setString(2, empname);
 			preparedStatement.setString(3, contact);
@@ -90,52 +56,71 @@ public class OpsImp implements Ops {
 		int status = 0;
 		try {
 			PreparedStatement selectstatement2 = GetConnection.getConnection()
-					.prepareStatement("SELECT * FROM empdemojdbc where empid=?");
+					.prepareStatement("SELECT * FROM jdbcnoui where empid=?");
 			selectstatement2.setInt(1, empid);
 			ResultSet resultSet = selectstatement2.executeQuery();
 
-			boolean empidExists = false;
-
-			while (resultSet.next()) {
-				if (resultSet.getInt("empid") == empid) {
-					empidExists = true;
-				}
+			if (resultSet.next()) {
+				PreparedStatement preparedStatement = GetConnection.getConnection()
+						.prepareStatement("DELETE from jdbcnoui where empid=?");
+				preparedStatement.setInt(1, empid);
+				status = preparedStatement.executeUpdate();
+				System.out.println("Data Deleted Successfully.");
 			}
-
-			if (!empidExists) {
-				JOptionPane.showMessageDialog(null, "ID does not exist!");
-				return 0;
+			else {
+				System.out.println("No such data exists!");
 			}
-
-			PreparedStatement preparedStatement = GetConnection.getConnection()
-					.prepareStatement("DELETE from empdemojdbc where empid=?");
-			preparedStatement.setInt(1, empid);
-			status = preparedStatement.executeUpdate();
-			System.out.println("Data Deleted Successfully.");
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		return status;
 
 	}
 
 	@Override
-	public void updateData(int empid, String contact) {
+	public int updateData(int empid, String empname, String contact) {
 		// TODO Auto-generated method stub
-		PreparedStatement preparedStatement;
-		try {
-			preparedStatement = GetConnection.getConnection()
-					.prepareStatement("UPDATE empdemojdbc SET contact = ? where empid = ?");
+		StringBuilder query = new StringBuilder("UPDATE jdbcnoui SET ");
+		List<String> fields = new ArrayList<>();
+		List<Object> values = new ArrayList<>();
+		if (empname != null && !empname.isEmpty()) {
+			fields.add("empname = ?");
+			values.add(empname);
+		}
+		if (contact != null && !contact.isEmpty()) {
+			fields.add("contact = ?");
+			values.add(contact);
+		}
 
-			preparedStatement.setString(1, contact);
-			preparedStatement.setInt(2, empid);
-			preparedStatement.executeUpdate();
-			System.out.println("Data Updated Successfully.");
+		if (fields.isEmpty()) {
+			System.out.println("NO data given to update!");
+			return 0;
+		}
+
+		query.append(String.join(", ", fields));
+		query.append(" WHERE empid = ?");
+		values.add(empid);
+
+		try (PreparedStatement preparedStatement = GetConnection.getConnection().prepareStatement(query.toString())) {
+			for (int i = 0; i < values.size(); i++) {
+				preparedStatement.setObject(i + 1, values.get(i));
+			}
+
+			int rowsAffected = preparedStatement.executeUpdate();
+			if (rowsAffected > 0) {
+				System.out.println("Data Updated Successfully.");
+				return 1;
+
+			} else {
+				System.out.println("No employee found with empid: " + empid);
+				return 0;
+			}
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return 0;
 	}
 
 	@Override
@@ -143,7 +128,7 @@ public class OpsImp implements Ops {
 		List<Emp> employeeList = new ArrayList<>();
 		try {
 			Statement statement = GetConnection.getConnection().createStatement();
-			ResultSet resultSet = statement.executeQuery("SELECT * from empdemojdbc");
+			ResultSet resultSet = statement.executeQuery("SELECT * from jdbcnoui");
 
 			while (resultSet.next()) {
 				int empid = resultSet.getInt("empid");
@@ -151,16 +136,18 @@ public class OpsImp implements Ops {
 				String contact = resultSet.getString("contact");
 
 				employeeList.add(new Emp(empid, empname, contact));
-				
+
 				if (employeeList.isEmpty()) {
-		            System.out.println("No employee records found.");
-		            
-		            JOptionPane.showMessageDialog(null, "No employee records found!");
-		        }
+					System.out.println("No employee records found.");
+
+					JOptionPane.showMessageDialog(null, "No employee records found!");
+					return null;
+				}
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println(employeeList);
 		return employeeList;
 	}
 
@@ -170,13 +157,17 @@ public class OpsImp implements Ops {
 		Emp emp = null;
 		try {
 			PreparedStatement preparedStatement = GetConnection.getConnection()
-					.prepareStatement("SELECT * from empdemojdbc where empid=?");
+					.prepareStatement("SELECT * from jdbcnoui where empid=?");
 			preparedStatement.setInt(1, empid);
 			ResultSet resultSet = preparedStatement.executeQuery();
 
-			while (resultSet.next()) {
+			if (resultSet.next()) {
 				emp = new Emp(resultSet.getInt("empid"), resultSet.getString("empname"),
 						resultSet.getString("Contact"));
+				System.out.println(emp);
+			} else {
+				System.out.println("NO such employee found");
+				return null;
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

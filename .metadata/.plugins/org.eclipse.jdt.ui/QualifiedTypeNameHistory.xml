@@ -45,7 +45,6 @@
     <fullyQualifiedTypeName name="deletion.Delete"/>
     <fullyQualifiedTypeName name="operations.Ops"/>
     <fullyQualifiedTypeName name="home.Home"/>
-    <fullyQualifiedTypeName name="operations.OpsImp"/>
     <fullyQualifiedTypeName name="displayall.Display"/>
     <fullyQualifiedTypeName name="searchdata.Search"/>
     <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
@@ -59,4 +58,6 @@
     <fullyQualifiedTypeName name="updateData.Update"/>
     <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
     <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
+    <fullyQualifiedTypeName name="operations.OpsImp"/>
+    <fullyQualifiedTypeName name="javax.imageio.metadata.IIOMetadataFormatImpl"/>
 </qualifiedTypeNameHistroy>
