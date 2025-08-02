@@ -1,18 +1,12 @@
-🚀 Advanced Java Features
-This repository covers several advanced Java concepts, including:
+## 🚀 **Advanced Java Features**
 
-JDBC (Java Database Connectivity)
+This repository also covers several **advanced Java** concepts, including:
 
-Connecting to databases, executing queries, and managing result sets
-
-Multithreading and Thread Management
-
-Creating and managing threads, synchronization, and concurrency
-
-Swing UI Development
-
-Building graphical user interfaces using Swing components
-
-Adapter Classes and Event Listeners
-
-Event Handling for interactive applications
+- **JDBC (Java Database Connectivity)**  
+  - Connecting to databases, executing queries, and managing result sets
+- **Multithreading and Thread Management**  
+  - Creating and managing threads, synchronization, and concurrency
+- **Swing UI Development**  
+  - Building graphical user interfaces using Swing components  
+  - **Adapter Classes** and **Event Listeners**  
+  - **Event Handling** for interactive applications
