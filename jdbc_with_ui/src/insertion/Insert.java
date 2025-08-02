@@ -13,8 +13,11 @@ public class Insert extends JFrame {
 
 	JTextField nameField, idField;
 	JFormattedTextField contactField;
-	JButton submitButton, resetButton, backButton;
+	JButton submitButton, resetButton, backButton, confirminsertbutton;
 	OpsImp opsImp;
+	
+	
+	JDialog confirminsertdialog;
 
 	Font labelFont = new Font("SansSerif", Font.BOLD, 15);
 	Font fieldFont = new Font("SansSerif", Font.PLAIN, 15);
@@ -99,13 +102,34 @@ public class Insert extends JFrame {
 				}
 				opsImp = new OpsImp();
 
-				int status = opsImp.insertData(Integer.parseInt(idField.getText()), nameField.getText(),
-						contactField.getText().replaceAll(",", ""));
-				if (status == 1) {
-					JOptionPane.showMessageDialog(null, "Data Inserted Successfully!");
-					dispose();
-					new Home();
-				}
+				confirminsertdialog = new JDialog();
+				confirminsertdialog.setTitle("Insertion");
+				confirminsertdialog.setSize(300, 100);
+				confirminsertdialog.setLayout(null);
+				confirminsertdialog.setLocationRelativeTo(null);
+				
+				confirminsertbutton = new JButton("Are you sure?");
+				confirminsertbutton.setFont(buttonFont);
+				confirminsertbutton.setBounds(30, 30, 200, 30);
+				
+				confirminsertbutton.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						int status = opsImp.insertData(Integer.parseInt(idField.getText()), nameField.getText(),
+								contactField.getText().replaceAll(",", ""));
+						if (status == 1) {
+							JOptionPane.showMessageDialog(null, "Data Inserted Successfully!");
+							dispose();
+							new Home();
+						}
+					}
+				});
+				confirminsertdialog.add(confirminsertbutton);
+				
+				confirminsertdialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				confirminsertdialog.setVisible(true);
 			}
 		});
 
