@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -70,6 +71,16 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				System.out.println("Submitted");
+				if(jTextField.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Please Enter Username.");
+					return;
+				}
+				if(jPasswordField.getPassword().equals("")) {
+					JOptionPane.showMessageDialog(null, "Please Enter Password.");
+					return;	
+					
+				}
+				
 				if(jTextField.getText().equals("SDAC") && new String(jPasswordField.getPassword()).equals("SDAC")) {
 					new Home();
 					dispose();
