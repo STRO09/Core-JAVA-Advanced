@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Copy package &apos;jdbc_usecase&apos; to &apos;jdbc_chp_3/src&apos;&#x0D;&#x0A;- Original project: &apos;jdbc_chp3&apos;&#x0D;&#x0A;- Destination element: &apos;jdbc_chp_3/src&apos;&#x0D;&#x0A;- Original element: &apos;jdbc_chp3/src/jdbc_usecase&apos;" description="Copy package" destination="=jdbc_chp_3/src" element1="/src&lt;jdbc_usecase" flags="589830" fragments="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyPackages" stamp="1742119478720" version="1.0"/>
-</session>
